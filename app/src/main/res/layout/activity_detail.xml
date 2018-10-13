@@ -10,14 +10,15 @@
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/divCenter"
+        android:background="@color/RED"
         />
 
     <TextView
+        style="@style/Text.Primary"
         android:id="@+id/lblDateAndTimeHeader"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/divCenter"
-        android:padding="16dp"
         tools:text="2:43AM 09/7/2018"
         />
 
@@ -30,11 +31,11 @@
         />
 
     <TextView
+        style="@style/Text.Secondary"
         android:id="@+id/lblMessageBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_below="@+id/divCenter"
-        android:padding="16dp"
         tools:text="Check out content like Fragmented Podcast to expose yourself to the knowledge, ideas and opinions of experts"
         />
 </RelativeLayout>
