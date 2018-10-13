@@ -1,7 +1,9 @@
-package com.gmail.arnasrad.recyclerviewdemo;
+package com.gmail.arnasrad.recyclerviewdemo.view;
 
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+
+import com.gmail.arnasrad.recyclerviewdemo.R;
 
 public class ListActivity extends AppCompatActivity {
 
