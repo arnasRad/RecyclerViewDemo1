@@ -1,5 +1,7 @@
 package com.gmail.arnasrad.recyclerviewdemo.data;
 
+import android.arch.persistence.room.Query;
+
 import com.gmail.arnasrad.recyclerviewdemo.R;
 
 import java.util.ArrayList;
@@ -22,7 +24,7 @@ import java.util.Random;
  * <p>
  * <p>
  */
-public class FakeDataSource implements DataSourceInterface {
+public class FakeDataSource implements ListItemDao {
     private static final int sizeOfCollection = 12;
     private Random random;
 
@@ -61,19 +63,20 @@ public class FakeDataSource implements DataSourceInterface {
      *
      * @return A list of 12 semi-random ListItems for testing purposes
      */
+    @Query("SELECT * FROM ListItem")
     @Override
-    public List<ListItem> getListOFData() {
+    public List<ListItem> getListItems() {
         ArrayList<ListItem> listOfData = new ArrayList<>();
 
         for(int i = 0; i < sizeOfCollection; ++i) {
-            listOfData.add(createNewListItem());
+            listOfData.add(insertListItem());
         }
 
         return listOfData;
     }
 
     @Override
-    public ListItem createNewListItem() {
+    public ListItem insertListItem() {
         int randOne = random.nextInt(4);
         int randTwo = random.nextInt(4);
         int randThree = random.nextInt(4);

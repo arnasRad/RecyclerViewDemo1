@@ -2,7 +2,7 @@ package com.gmail.arnasrad.recyclerviewdemo.logic;
 
 import android.view.View;
 
-import com.gmail.arnasrad.recyclerviewdemo.data.DataSourceInterface;
+import com.gmail.arnasrad.recyclerviewdemo.data.ListItemDao;
 import com.gmail.arnasrad.recyclerviewdemo.data.ListItem;
 import com.gmail.arnasrad.recyclerviewdemo.list.ViewInterface;
 
@@ -11,9 +11,9 @@ public class Controller {
     private int temporaryListItemPosition;
 
     private ViewInterface view;
-    private DataSourceInterface dataSource;
+    private ListItemDao dataSource;
 
-    public Controller(ViewInterface view, DataSourceInterface dataSource) {
+    public Controller(ViewInterface view, ListItemDao dataSource) {
         this.view = view;
         this.dataSource = dataSource;
 
@@ -22,7 +22,7 @@ public class Controller {
 
     public void getListFromDataSource() {
         view.setUpAdapterAndView(
-                dataSource.getListOFData()
+                dataSource.getListItems()
         );
     }
 
@@ -45,7 +45,7 @@ public class Controller {
          IO thread, and respond via an Asynchronous callback to the Main thread.
          */
 
-        ListItem newItem = dataSource.createNewListItem();
+        ListItem newItem = dataSource.insertListItem();
 
         view.addNewListItemToView(newItem);
     }

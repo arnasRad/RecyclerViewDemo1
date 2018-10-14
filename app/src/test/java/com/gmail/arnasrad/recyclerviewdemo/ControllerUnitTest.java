@@ -2,7 +2,7 @@ package com.gmail.arnasrad.recyclerviewdemo;
 
 import android.view.View;
 
-import com.gmail.arnasrad.recyclerviewdemo.data.DataSourceInterface;
+import com.gmail.arnasrad.recyclerviewdemo.data.ListItemDao;
 import com.gmail.arnasrad.recyclerviewdemo.data.ListItem;
 import com.gmail.arnasrad.recyclerviewdemo.logic.Controller;
 import com.gmail.arnasrad.recyclerviewdemo.list.ViewInterface;
@@ -30,7 +30,7 @@ public class ControllerUnitTest {
      * Specifically a "Mock"
      */
     @Mock
-    DataSourceInterface dataSource;
+    ListItemDao dataSource;
 
     @Mock
     ViewInterface view;
@@ -60,7 +60,7 @@ public class ControllerUnitTest {
         listOfData.add(TEST_ITEM);
 
         // Set up our Mocks to return the Data we want
-        Mockito.when(dataSource.getListOFData())
+        Mockito.when(dataSource.getListItems())
                 .thenReturn(listOfData);
 
         // Call the method(Unit) we are testing
