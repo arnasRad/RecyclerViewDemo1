@@ -18,14 +18,19 @@
   -->
 
 <resources>
-    <style name="AppTheme" parent="Theme.AppCompat.NoActionBar">
-        <!-- Customize your theme here. -->
-        <item name="colorPrimary">@color/colorPrimary</item>
-        <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
-        <item name="colorAccent">@color/colorAccent</item>
-        <item name="android:windowBackground">@color/colorWindowBackground</item>
 
-        <item name="android:windowContentTransitions">true</item>
+    <style name="ImageButtonToolbar" parent="Base.Widget.AppCompat.ImageButton">
+        <item name="android:padding">16dp</item>
+        <item name="background">?attr/selectableItemBackground</item>
+
     </style>
 
+    <style name="EditTextCreateMessage" parent="Base.Widget.AppCompat.EditText">
+        <item name="android:padding">16dp</item>
+        <item name="android:fontFamily">sans-serif-medium</item>
+        <item name="android:textSize">16sp</item>
+        <item name="android:inputType">textCapSentences|textMultiLine</item>
+        <item name="android:gravity">left|top</item>
+
+    </style>
 </resources>
