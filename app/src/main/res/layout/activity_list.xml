@@ -4,6 +4,7 @@
     xmlns:tools="http://schemas.android.com/tools"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
+    android:id="@+id/rootListActivity"
     tools:context=".view.ListActivity">
 
     <!--7. If you wish, you can specify a LayoutManager in XML instead of Java. Mostly a matter
@@ -11,7 +12,7 @@
     -->
 
     <android.support.v7.widget.Toolbar
-        android:id="@+id/tlb_list_activity"
+        android:id="@+id/tlbListActivity"
         android:layout_width="0dp"
         android:layout_height="56dp"
         android:background="@color/colorPrimaryDark"
@@ -23,7 +24,7 @@
         app:layout_constraintRight_toRightOf="parent" />
 
     <android.support.design.widget.FloatingActionButton
-        android:id="@+id/fab_create_new_item"
+        android:id="@+id/fabCreateNewItem"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:src="@drawable/ic_add_black_24dp"

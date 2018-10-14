@@ -46,12 +46,9 @@ public class DetailActivity extends AppCompatActivity {
         message = (TextView) findViewById(R.id.lblMessageBody);
         message.setText(messageExtra);
 
-        coloredBackground = findViewById(R.id.contColoredBackground);
+        coloredBackground = findViewById(R.id.imvColoredBackground);
         coloredBackground.setBackgroundResource(
                 drawableResourceExtra
         );
-
-
-
     }
 }

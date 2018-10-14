@@ -5,15 +5,16 @@
     android:layout_height="match_parent"
     tools:context=".view.DetailActivity">
 
-    <View
-        android:id="@+id/contColoredBackground"
+    <ImageView
+        android:transitionName="@string/transition_drawable"
+        android:id="@+id/imvColoredBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
         android:layout_above="@+id/divCenter"
-        android:background="@color/RED"
         />
 
     <TextView
+        android:transitionName="@string/transition_time_and_date"
         style="@style/Text.Primary"
         android:id="@+id/lblDateAndTimeHeader"
         android:layout_width="match_parent"
@@ -33,6 +34,7 @@
         />
 
     <TextView
+        android:transitionName="@string/transition_message"
         style="@style/Text.Secondary"
         android:id="@+id/lblMessageBody"
         android:layout_width="match_parent"

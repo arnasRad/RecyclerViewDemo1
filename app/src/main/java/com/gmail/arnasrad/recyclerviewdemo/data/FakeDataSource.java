@@ -72,19 +72,33 @@ public class FakeDataSource implements DataSourceInterface {
         ArrayList<ListItem> listOfData = new ArrayList<>();
 
         for(int i = 0; i < sizeOfCollection; ++i) {
-            int randOne = random.nextInt(4);
-            int randTwo = random.nextInt(4);
-            int randThree = random.nextInt(4);
-
-            ListItem listItem = new ListItem(
-                    datesAndTimes[randOne],
-                    messages[randTwo],
-                    drawables[randThree]
-            );
-
-            listOfData.add(listItem);
+            listOfData.add(createNewListItem());
         }
 
         return listOfData;
+    }
+
+    @Override
+    public ListItem createNewListItem() {
+        int randOne = random.nextInt(4);
+        int randTwo = random.nextInt(4);
+        int randThree = random.nextInt(4);
+
+        ListItem listItem = new ListItem(
+                datesAndTimes[randOne],
+                messages[randTwo],
+                drawables[randThree]
+        );
+        return listItem;
+    }
+
+    @Override
+    public void deleteListItem(ListItem listItem) {
+
+    }
+
+    @Override
+    public void insertListItem(ListItem temporaryListItem) {
+
     }
 }

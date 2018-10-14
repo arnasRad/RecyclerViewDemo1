@@ -9,4 +9,10 @@ import java.util.List;
 
 public interface DataSourceInterface {
     List<ListItem> getListOFData();
+
+    ListItem createNewListItem();
+
+    void deleteListItem(ListItem listItem);
+
+    void insertListItem(ListItem temporaryListItem);
 }
