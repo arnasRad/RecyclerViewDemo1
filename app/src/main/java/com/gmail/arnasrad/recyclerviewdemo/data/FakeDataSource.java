@@ -1,5 +1,7 @@
 package com.gmail.arnasrad.recyclerviewdemo.data;
 
+import com.gmail.arnasrad.recyclerviewdemo.R;
+
 import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
@@ -77,7 +79,7 @@ public class FakeDataSource implements DataSourceInterface {
             ListItem listItem = new ListItem(
                     datesAndTimes[randOne],
                     messages[randTwo],
-                    colours[randThree]
+                    drawables[randThree]
             );
 
             listOfData.add(listItem);
