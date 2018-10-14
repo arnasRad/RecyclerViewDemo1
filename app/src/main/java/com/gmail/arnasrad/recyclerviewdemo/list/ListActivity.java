@@ -1,4 +1,4 @@
-package com.gmail.arnasrad.recyclerviewdemo.view;
+package com.gmail.arnasrad.recyclerviewdemo.list;
 
 import android.app.ActivityOptions;
 import android.content.Intent;

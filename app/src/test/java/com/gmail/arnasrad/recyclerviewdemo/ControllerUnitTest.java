@@ -5,7 +5,7 @@ import android.view.View;
 import com.gmail.arnasrad.recyclerviewdemo.data.DataSourceInterface;
 import com.gmail.arnasrad.recyclerviewdemo.data.ListItem;
 import com.gmail.arnasrad.recyclerviewdemo.logic.Controller;
-import com.gmail.arnasrad.recyclerviewdemo.view.ViewInterface;
+import com.gmail.arnasrad.recyclerviewdemo.list.ViewInterface;
 
 import org.junit.Before;
 import org.junit.Test;
