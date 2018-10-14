@@ -15,36 +15,36 @@
   ~  * limitations under the License.
   ~  */
   -->
+  <!--  tools:context=".detail.DetailActivity" -->
 
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     xmlns:tools="http://schemas.android.com/tools"
-    android:id="@+id/root_activity_detail"
+    android:id="@+id/rootActivityDetail"
     android:layout_width="match_parent"
-    android:layout_height="match_parent"
-    tools:context=".detail.DetailActivity">
+    android:layout_height="match_parent">
 
     <ImageView
-        android:id="@+id/imv_colored_background"
+        android:id="@+id/imvColoredBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
-        android:layout_above="@+id/div_center"
+        android:layout_above="@+id/divCenter"
         android:scaleType="centerCrop"
-        android:transitionName="@string/transition_drawable" />
+        android:transitionName="@string/transitionDrawable" />
 
 
     <TextView
-        android:id="@+id/lbl_date_and_time_header"
+        android:id="@+id/lblDateAndTimeHeader"
         style="@style/Text.Primary"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_above="@+id/lbl_message_body"
+        android:layout_above="@+id/lblMessageBody"
         android:background="@color/colorTransparentBlack"
         android:padding="16dp"
-        android:transitionName="@string/transition_time_and_date"
+        android:transitionName="@string/transitionTimeAndDate"
         tools:text="2:43AM 09/7/2018" />
 
     <View
-        android:id="@+id/div_center"
+        android:id="@+id/divCenter"
         style="@style/Text.Primary"
         android:layout_width="match_parent"
         android:layout_height="1dp"
@@ -53,11 +53,11 @@
         />
 
     <TextView
-        android:id="@+id/lbl_message_body"
+        android:id="@+id/lblMessageBody"
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
-        android:layout_below="@+id/div_center"
+        android:layout_below="@+id/divCenter"
         android:padding="16dp"
-        android:transitionName="@string/transition_message"
+        android:transitionName="@string/transitionMessage"
         tools:text="Check out content like Fragmented Podcast to expose yourself to the knowledge, ideas, and opinions of experts in your field" />
 </RelativeLayout>

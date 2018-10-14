@@ -19,9 +19,34 @@ allprojects {
     repositories {
         google()
         jcenter()
+
+        //VPI
+        maven { url "https://jitpack.io" }
     }
 }
 
 task clean(type: Delete) {
     delete rootProject.buildDir
+}
+
+ext {
+    //build
+    minSdkVersion = 16
+    compileSdkVersion = 28
+    buildToolsVersion = '28.0.2'
+
+    //3rd party
+    picassoVersion = '2.5.2'
+    circleImageViewVersion = '2.1.0'
+    viewPagerIndicatorVersion = '2.4.1'
+    daggerVersion = '2.13'
+
+    //android
+    supportLibraryVersion = '28.0.0'
+    constraintLayoutVersion = '1.1.3'
+    archLifecycleVersion = '1.1.1'
+    archLifecycleCompilerVersion = '1.1.1'
+    archLifecycleExtensionsVersion = '1.1.1'
+    roomVersion = '1.1.1'
+
 }
