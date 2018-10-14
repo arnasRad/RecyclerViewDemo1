@@ -2,19 +2,14 @@ package com.gmail.arnasrad.recyclerviewdemo.data;
 
 import com.gmail.arnasrad.recyclerviewdemo.R;
 
-import java.lang.reflect.Array;
 import java.util.ArrayList;
 import java.util.List;
 import java.util.Random;
 
 /**
-  * Test Double
-  * (Specifically a "Fake")
-  *
-  *
-  */
-
-/**
+ * Test Double
+ * (Specifically a "Fake")
+ *
  * "Fake objects actually have working implementations, but usually take some shortcut which makes
  * them not suitable for production (an in memory database is a good example)."
  * <p>
@@ -27,7 +22,6 @@ import java.util.Random;
  * <p>
  * <p>
  */
-
 public class FakeDataSource implements DataSourceInterface {
     private static final int sizeOfCollection = 12;
     private Random random;
@@ -84,12 +78,11 @@ public class FakeDataSource implements DataSourceInterface {
         int randTwo = random.nextInt(4);
         int randThree = random.nextInt(4);
 
-        ListItem listItem = new ListItem(
+        return new ListItem(
                 datesAndTimes[randOne],
                 messages[randTwo],
                 drawables[randThree]
         );
-        return listItem;
     }
 
     @Override

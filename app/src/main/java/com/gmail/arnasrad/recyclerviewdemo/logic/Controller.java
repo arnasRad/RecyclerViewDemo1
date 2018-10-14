@@ -69,8 +69,6 @@ public class Controller {
 
             temporaryListItem = null;
             temporaryListItemPosition = 0;
-        } else {
-
         }
     }
 

@@ -44,7 +44,6 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
     private LayoutInflater layoutInflater;
     private RecyclerView recyclerView;
     private CustomAdapter adapter;
-    private Toolbar toolbar;
 
     private Controller controller;
 
@@ -55,7 +54,7 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
 
         recyclerView = findViewById(R.id.recListActivity);
         layoutInflater = getLayoutInflater();
-        toolbar = findViewById(R.id.tlbListActivity);
+        Toolbar toolbar = findViewById(R.id.tlbListActivity);
 
         toolbar.setTitle(R.string.titleToolbar);
         toolbar.setLogo(R.drawable.ic_view_list_white_24dp);
@@ -261,7 +260,7 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
             private ViewGroup container;
             private ProgressBar loading;
 
-            public CustomViewHolder(@NonNull View itemView) {
+            CustomViewHolder(@NonNull View itemView) {
                 super(itemView);
 
                 this.coloredCircle = itemView.findViewById(R.id.imvListItemCircle);
@@ -299,13 +298,14 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
         Note that we can supply 0, one constant (e.g. ItemTouchHelper.LEFT), or two constants (e.g.
         ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) to specify what directions are allowed.
         */
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(
+
+        return new ItemTouchHelper.SimpleCallback(
                 0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             //not used, as the first parameter above is 0
             @Override
-            public boolean onMove(@NonNull RecyclerView recyclerView,
+            public boolean onMove(@NonNull RecyclerView recyclerView1,
                                   @NonNull RecyclerView.ViewHolder viewHolder,
                                   @NonNull RecyclerView.ViewHolder target) {
                 return false;
@@ -313,7 +313,7 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
 
 
             @Override
-            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+            public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 int position = viewHolder.getAdapterPosition();
                 controller.onListItemSwiped(
                         position,
@@ -321,7 +321,5 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
                 );
             }
         };
-
-        return simpleItemTouchCallback;
     }
 }
