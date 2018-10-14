@@ -2,8 +2,10 @@ package com.gmail.arnasrad.recyclerviewdemo.view;
 
 import android.content.Intent;
 import android.support.annotation.NonNull;
+import android.support.v4.content.ContextCompat;
 import android.support.v7.app.AppCompatActivity;
 import android.os.Bundle;
+import android.support.v7.widget.DividerItemDecoration;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
@@ -57,10 +59,30 @@ public class ListActivity extends AppCompatActivity implements ViewInterface {
     @Override
     public void setUpAdapterAndView(List<ListItem> listOfData) {
         this.listOfData = listOfData;
+        LinearLayoutManager layoutManager = new LinearLayoutManager(this);
         // new GridLayoutManager or StaggeredGridLayoutManager
-        recyclerView.setLayoutManager(new LinearLayoutManager(this));
+        recyclerView.setLayoutManager(layoutManager);
+
         adapter = new CustomAdapter();
         recyclerView.setAdapter(adapter);
+
+
+        // Check the documentation for more ideas on item decoration
+        DividerItemDecoration itemDecoration = new DividerItemDecoration(
+                recyclerView.getContext(),
+                layoutManager.getOrientation()
+        );
+
+        itemDecoration.setDrawable(
+                ContextCompat.getDrawable(
+                        ListActivity.this,
+                        R.drawable.divider_white
+                )
+        );
+
+        recyclerView.addItemDecoration(
+                itemDecoration
+        );
     }
 
     private class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {

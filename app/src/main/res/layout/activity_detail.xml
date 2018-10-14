@@ -19,12 +19,14 @@
         android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:layout_above="@+id/divCenter"
+        android:background="@color/colorTransparentBlack"
         tools:text="2:43AM 09/7/2018"
         />
 
 
     <View
         android:id="@+id/divCenter"
+        style="@style/Text.Primary"
         android:layout_width="match_parent"
         android:layout_height="1dp"
         android:layout_centerVertical="true"
