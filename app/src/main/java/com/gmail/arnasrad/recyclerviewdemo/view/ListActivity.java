@@ -1,5 +1,6 @@
 package com.gmail.arnasrad.recyclerviewdemo.view;
 
+import android.app.ActivityOptions;
 import android.content.Intent;
 import android.os.Build;
 import android.support.annotation.NonNull;
@@ -14,10 +15,13 @@ import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.support.v7.widget.helper.ItemTouchHelper;
 import android.transition.Fade;
+import android.util.Pair;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
+import android.widget.ProgressBar;
 import android.widget.TextView;
+import android.support.v7.widget.Toolbar;
 
 import com.gmail.arnasrad.recyclerviewdemo.R;
 import com.gmail.arnasrad.recyclerviewdemo.data.FakeDataSource;
@@ -25,6 +29,9 @@ import com.gmail.arnasrad.recyclerviewdemo.data.ListItem;
 import com.gmail.arnasrad.recyclerviewdemo.logic.Controller;
 
 import java.util.List;
+import java.util.Objects;
+
+import de.hdodenhof.circleimageview.CircleImageView;
 
 public class ListActivity extends AppCompatActivity implements ViewInterface, View.OnClickListener {
 
@@ -37,6 +44,7 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
     private LayoutInflater layoutInflater;
     private RecyclerView recyclerView;
     private CustomAdapter adapter;
+    private Toolbar toolbar;
 
     private Controller controller;
 
@@ -45,10 +53,15 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
         super.onCreate(savedInstanceState);
         setContentView(R.layout.activity_list);
 
-        recyclerView = (RecyclerView) findViewById(R.id.recListActivity);
+        recyclerView = findViewById(R.id.recListActivity);
         layoutInflater = getLayoutInflater();
+        toolbar = findViewById(R.id.tlbListActivity);
 
-        FloatingActionButton fabulous = (FloatingActionButton) findViewById(R.id.fabCreateNewItem);
+        toolbar.setTitle(R.string.titleToolbar);
+        toolbar.setLogo(R.drawable.ic_view_list_white_24dp);
+        //toolbar.setTitleMarginStart(72);
+
+        FloatingActionButton fabulous = findViewById(R.id.fabCreateNewItem);
 
         fabulous.setOnClickListener(this);
 
@@ -57,7 +70,7 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
     }
 
     @Override
-    public void startDetailActivity(String dateAndTime, String message, int colorResource, View testViewRoot) {
+    public void startDetailActivity(String dateAndTime, String message, int colorResource, View viewRoot) {
         Intent i = new Intent(this, DetailActivity.class);
         i.putExtra(EXTRA_DATE_AND_TIME, dateAndTime);
         i.putExtra(EXTRA_MESSAGE, message);
@@ -68,6 +81,17 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
             getWindow().setEnterTransition(new Fade(Fade.OUT));
 
 
+            ActivityOptions options = ActivityOptions
+                    .makeSceneTransitionAnimation(
+                            this,
+                            new Pair<>(viewRoot.findViewById(R.id.imvListItemCircle),
+                                    getString(R.string.transitionDrawable)),
+                            new Pair<>(viewRoot.findViewById(R.id.lblMessage),
+                                    getString(R.string.transitionMessage)),
+                            new Pair<>(viewRoot.findViewById(R.id.lblDateAndTime),
+                                    getString(R.string.transitionTimeAndDate))
+                            );
+            startActivity(i, options.toBundle());
         } else {
             startActivity(i);
         }
@@ -92,10 +116,10 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
         );
 
         itemDecoration.setDrawable(
-                ContextCompat.getDrawable(
+                Objects.requireNonNull(ContextCompat.getDrawable(
                         ListActivity.this,
                         R.drawable.divider_white
-                )
+                ))
         );
 
         recyclerView.addItemDecoration(
@@ -121,7 +145,7 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
     public void deleteListItemAt(int position) {
         listOfData.remove(position);
 
-        adapter.notifyItemInserted(position);
+        adapter.notifyItemRemoved(position);
     }
 
     @Override
@@ -159,7 +183,7 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
     public void onClick(View v) {
         int viewId = v.getId();
         if (viewId == R.id.fabCreateNewItem) {
-            /** User wishes to create a new RecyclerView Item*/
+            // User wishes to create a new RecyclerView Item
             controller.createNewListItem();
         }
     }
@@ -172,7 +196,7 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
          *
          * @param viewGroup   Unfortunately the docs currently don't explain this at all :(
          * @param i Unfortunately the docs currently don't explain this at all :(
-         * @return
+         * @return CustomViewHolder
          */
         @NonNull
         @Override
@@ -195,7 +219,7 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
         public void onBindViewHolder(@NonNull CustomViewHolder customViewHolder, int i) {
             ListItem currentItem = listOfData.get(i);
 
-            customViewHolder.coloredCircle.setBackgroundResource(
+            customViewHolder.coloredCircle.setImageResource(
                     currentItem.getColorResource()
             );
 
@@ -206,6 +230,8 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
             customViewHolder.dateAndTime.setText(
                     currentItem.getDateAndTime()
             );
+
+            customViewHolder.loading.setVisibility(View.INVISIBLE);
         }
 
 
@@ -229,19 +255,21 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
         class CustomViewHolder extends RecyclerView.ViewHolder implements View.OnClickListener {
 
             /**10. now that we've made our layouts, let's bind them*/
-            private View coloredCircle;
+            private CircleImageView coloredCircle;
             private TextView dateAndTime;
             private TextView message;
             private ViewGroup container;
+            private ProgressBar loading;
 
             public CustomViewHolder(@NonNull View itemView) {
                 super(itemView);
 
                 this.coloredCircle = itemView.findViewById(R.id.imvListItemCircle);
-                this.dateAndTime = (TextView) itemView.findViewById(R.id.lblDateAndTime);
-                this.message = (TextView) itemView.findViewById(R.id.lblMessage);
-                this.container = (ViewGroup) itemView.findViewById(R.id.rootListItem);
-                /**
+                this.dateAndTime = itemView.findViewById(R.id.lblDateAndTime);
+                this.message = itemView.findViewById(R.id.lblMessage);
+                this.container = itemView.findViewById(R.id.rootListItem);
+                this.loading = itemView.findViewById(R.id.proItemData);
+                /*
                 We can pass "this" as an Argument, because "this", which refers to the Current
                 Instance of type CustomViewHolder currently conforms to (implements) the
                 View.OnClickListener interface. I have a Video on my channel which goes into
@@ -277,8 +305,9 @@ public class ListActivity extends AppCompatActivity implements ViewInterface, Vi
 
             //not used, as the first parameter above is 0
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
-                                  RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView,
+                                  @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 

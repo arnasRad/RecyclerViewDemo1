@@ -6,7 +6,7 @@
     tools:context=".view.DetailActivity">
 
     <ImageView
-        android:transitionName="@string/transition_drawable"
+        android:transitionName="@string/transitionDrawable"
         android:id="@+id/imvColoredBackground"
         android:layout_width="match_parent"
         android:layout_height="match_parent"
@@ -14,7 +14,7 @@
         />
 
     <TextView
-        android:transitionName="@string/transition_time_and_date"
+        android:transitionName="@string/transitionTimeAndDate"
         style="@style/Text.Primary"
         android:id="@+id/lblDateAndTimeHeader"
         android:layout_width="match_parent"
@@ -34,7 +34,7 @@
         />
 
     <TextView
-        android:transitionName="@string/transition_message"
+        android:transitionName="@string/transitionMessage"
         style="@style/Text.Secondary"
         android:id="@+id/lblMessageBody"
         android:layout_width="match_parent"
