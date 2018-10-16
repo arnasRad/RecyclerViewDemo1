@@ -3,6 +3,7 @@
     package="com.gmail.arnasrad.recyclerviewdemo">
 
     <application
+        android:name=".RoomDemoApplication"
         android:allowBackup="true"
         android:icon="@mipmap/ic_launcher"
         android:label="@string/appName"
@@ -17,7 +18,7 @@
             </intent-filter>
         </activity>
         <activity android:name=".detail.DetailActivity" />
-        <activity android:name=".create.CreateActivity"></activity>
+        <activity android:name=".create.CreateActivity" />
     </application>
 
 </manifest>

@@ -10,6 +10,7 @@ import android.content.Context;
 import android.content.Intent;
 import android.os.Build;
 import android.os.Bundle;
+import android.support.annotation.NonNull;
 import android.support.annotation.Nullable;
 import android.support.design.widget.FloatingActionButton;
 import android.support.v4.app.Fragment;
@@ -35,6 +36,7 @@ import com.gmail.arnasrad.recyclerviewdemo.detail.DetailActivity;
 import com.gmail.arnasrad.recyclerviewdemo.viewmodel.ListItemCollectionViewModel;
 
 import java.util.List;
+import java.util.Objects;
 
 import javax.inject.Inject;
 
@@ -74,7 +76,7 @@ public class ListFragment extends Fragment {
     public void onCreate(Bundle savedInstanceState) {
         super.onCreate(savedInstanceState);
 
-        ((RoomDemoApplication) getActivity().getApplication())
+        ((RoomDemoApplication) Objects.requireNonNull(getActivity()).getApplication())
                 .getApplicationComponent()
                 .inject(this);
     }
@@ -98,19 +100,19 @@ public class ListFragment extends Fragment {
     }
 
     @Override
-    public View onCreateView(LayoutInflater inflater, ViewGroup container,
+    public View onCreateView(@NonNull LayoutInflater inflater, ViewGroup container,
                              Bundle savedInstanceState) {
         View v = inflater.inflate(R.layout.fragment_list, container, false);
 
-        recyclerView = (RecyclerView) v.findViewById(R.id.recListActivity);
-        layoutInflater = getActivity().getLayoutInflater();
-        toolbar = (Toolbar) v.findViewById(R.id.tlbListActivity);
+        recyclerView = v.findViewById(R.id.recListActivity);
+        layoutInflater = Objects.requireNonNull(getActivity()).getLayoutInflater();
+        toolbar = v.findViewById(R.id.tlbListActivity);
 
         toolbar.setTitle(R.string.titleToolbar);
         toolbar.setLogo(R.drawable.ic_view_list_white_24dp);
         toolbar.setTitleMarginStart(72);
 
-        FloatingActionButton fabulous = (FloatingActionButton) v.findViewById(R.id.fabCreateNewItem);
+        FloatingActionButton fabulous = v.findViewById(R.id.fabCreateNewItem);
 
         fabulous.setOnClickListener(new View.OnClickListener() {
             @Override
@@ -144,6 +146,7 @@ public class ListFragment extends Fragment {
         i.putExtra(EXTRA_ITEM_ID, itemId);
 
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP) {
+            assert container != null;
             container.getWindow().setEnterTransition(new Fade(Fade.IN));
             container.getWindow().setEnterTransition(new Fade(Fade.OUT));
 
@@ -183,10 +186,10 @@ public class ListFragment extends Fragment {
         );
 
         itemDecoration.setDrawable(
-                ContextCompat.getDrawable(
-                        getActivity(),
+                Objects.requireNonNull(ContextCompat.getDrawable(
+                        Objects.requireNonNull(getActivity()),
                         R.drawable.divider_white
-                )
+                ))
         );
 
         recyclerView.addItemDecoration(
@@ -203,14 +206,15 @@ public class ListFragment extends Fragment {
 
     private class CustomAdapter extends RecyclerView.Adapter<CustomAdapter.CustomViewHolder> {//6
 
+        @NonNull
         @Override
-        public CustomAdapter.CustomViewHolder onCreateViewHolder(ViewGroup parent, int viewType) {
+        public CustomAdapter.CustomViewHolder onCreateViewHolder(@NonNull ViewGroup parent, int viewType) {
             View v = layoutInflater.inflate(R.layout.item_data, parent, false);
             return new CustomViewHolder(v);
         }
 
         @Override
-        public void onBindViewHolder(CustomAdapter.CustomViewHolder holder, int position) {
+        public void onBindViewHolder(@NonNull CustomAdapter.CustomViewHolder holder, int position) {
             //11. and now the ViewHolder data
             ListItem currentItem = listOfData.get(position);
 
@@ -243,14 +247,14 @@ public class ListFragment extends Fragment {
             private ViewGroup container;
             private ProgressBar loading;
 
-            public CustomViewHolder(View itemView) {
+            CustomViewHolder(View itemView) {
                 super(itemView);
-                this.coloredCircle = (CircleImageView) itemView.findViewById(R.id.imvListItemCircle);
-                this.dateAndTime = (TextView) itemView.findViewById(R.id.lblDateAndTime);
-                this.message = (TextView) itemView.findViewById(R.id.lblMessage);
-                this.loading = (ProgressBar) itemView.findViewById(R.id.proItemData);
+                this.coloredCircle = itemView.findViewById(R.id.imvListItemCircle);
+                this.dateAndTime = itemView.findViewById(R.id.lblDateAndTime);
+                this.message = itemView.findViewById(R.id.lblMessage);
+                this.loading = itemView.findViewById(R.id.proItemData);
 
-                this.container = (ViewGroup) itemView.findViewById(R.id.rootListItem);
+                this.container = itemView.findViewById(R.id.rootListItem);
                 /*
                 We can pass "this" as an Argument, because "this", which refers to the Current
                 Instance of type CustomViewHolder currently conforms to (implements) the
@@ -278,18 +282,18 @@ public class ListFragment extends Fragment {
     }
 
     private ItemTouchHelper.Callback createHelperCallback() {
-        ItemTouchHelper.SimpleCallback simpleItemTouchCallback = new ItemTouchHelper.SimpleCallback(0,
+        return new ItemTouchHelper.SimpleCallback(0,
                 ItemTouchHelper.LEFT | ItemTouchHelper.RIGHT) {
 
             //not used, as the first parameter above is 0
             @Override
-            public boolean onMove(RecyclerView recyclerView, RecyclerView.ViewHolder viewHolder,
-                                  RecyclerView.ViewHolder target) {
+            public boolean onMove(@NonNull RecyclerView recyclerView1, @NonNull RecyclerView.ViewHolder viewHolder,
+                                  @NonNull RecyclerView.ViewHolder target) {
                 return false;
             }
 
             @Override
-            public void onSwiped(final RecyclerView.ViewHolder viewHolder, int swipeDir) {
+            public void onSwiped(@NonNull final RecyclerView.ViewHolder viewHolder, int swipeDir) {
                 int position = viewHolder.getAdapterPosition();
                 listItemCollectionViewModel.deleteListItem(
                         listOfData.get(position)
@@ -302,6 +306,5 @@ public class ListFragment extends Fragment {
 
             }
         };
-        return simpleItemTouchCallback;
     }
 }
