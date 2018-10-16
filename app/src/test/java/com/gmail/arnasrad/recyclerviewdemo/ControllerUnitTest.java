@@ -76,7 +76,7 @@ public class ControllerUnitTest {
         controller.onListItemClick(TEST_ITEM, testViewRoot);
 
         Mockito.verify(view).startDetailActivity(
-                TEST_ITEM.getDateAndTime(),
+                TEST_ITEM.getItemId(),
                 TEST_ITEM.getMessage(),
                 TEST_ITEM.getColorResource(),
                 testViewRoot);

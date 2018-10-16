@@ -7,34 +7,36 @@ package com.gmail.arnasrad.recyclerviewdemo.data;
 
 import android.arch.persistence.room.Entity;
 import android.arch.persistence.room.PrimaryKey;
+import android.support.annotation.NonNull;
 
 @Entity
 public class ListItem {
     // Example:
-    // private final String dateAndTime
+    // private final String itemId
     // here 'final' means that the variable can only be initialized in constructor and
     // cannot be changed later on (for example, setter won't work on this variable)
     @PrimaryKey
-    private String dateAndTime;
+    @NonNull
+    private String itemId;
     private String message;
     private int colorResource;
 
 
 
-    public ListItem(String dateAndTime, String message, int colorResource) {
-        this.dateAndTime = dateAndTime;
+    public ListItem(String itemId, String message, int colorResource) {
+        this.itemId = itemId;
         this.message = message;
         this.colorResource = colorResource;
     }
 
-    public String getDateAndTime() {
+    public String getItemId() {
 
-        return dateAndTime;
+        return itemId;
     }
 
-    public void setDateAndTime(String dateAndTime) {
+    public void setItemId(String itemId) {
 
-        this.dateAndTime = dateAndTime;
+        this.itemId = itemId;
     }
 
     public String getMessage() {

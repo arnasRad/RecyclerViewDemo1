@@ -21,11 +21,12 @@ public interface ListItemDao {
     @Query("SELECT * FROM ListItem")
     LiveData<List<ListItem>> getListItems();
 
+
     @Query("SELECT * FROM ListItem WHERE itemId = :itemId")
     LiveData<ListItem> getListItemById(String itemId);
 
     @Insert(onConflict = OnConflictStrategy.REPLACE)
-    Long insertListItem();
+    Long insertListItem(ListItem listItem);
 
     @Delete
     void deleteListItem(ListItem listItem);
